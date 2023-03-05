@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <!-- <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css" /> -->
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Personal Chat GPT</title>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <form id="chat-gpt-form">
+        <div id="messages-container">
+          <div class="mb-3">
+            <div class="input-group mb-3">
+              <button class="btn btn-outline-secondary role-system" data-role-type="system" disabled>SYSTEM</button>
+              <textarea class="form-control message-text" name="system" id="system" rows="1" placeholder="You are a helpful assistant."></textarea>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary role-switch" data-role-type="user" tabindex="-1">USER</button>
+            <textarea class="form-control message-text" rows="1" placeholder="Enter a user message here." aria-label="message"></textarea>
+            <button class="btn btn-outline-secondary message-delete" tabindex="-1" data-role-type="user">-</button>
+          </div>
+        </div>
+        <div class="mb-3 p-0"><button class="btn btn-dark" type="button" id="add-message">+ Add message</button></div>
+        <div class="mb-3"><button class="btn btn-success" type="submit" id="submit">Submit</button></div>
+      </form>
+    </div>
+    <footer>
+      <script src="js/script.js"></script>
+    </footer>
+  </body>
+</html>
