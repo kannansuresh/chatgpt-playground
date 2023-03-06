@@ -52,3 +52,7 @@ body {
 main {
   font-weight: 300;
 }
+
+a {
+  text-decoration: none;
+}

@@ -9,25 +9,163 @@ const addMessageButton = document.getElementById('add-message');
 const systemTextarea = document.getElementById('system');
 const submitButton = document.getElementById('submit');
 const apiKeyInput = document.getElementById('apiKey');
+const downloadFileBrand = 'Downloaded from [Aneejian ChatGPT Playground](https://aneejian.com/)';
+const model = 'gpt-3.5-turbo';
 
-const downloadButton = document.getElementById('download');
-downloadButton.addEventListener('click', downloadChats);
+const htmlTemplate = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
+    <title>Aneejian - ChatGPT Playground Export</title>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <!-- replace me  -->
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p class="text-center">
+                <a href="https://aneejian.com/" target="_blank">Aneejian</a> - <a href="https://aneejian.com/chatgpt-playground/" target="_blank">ChatGPT Playground</a>
+            </p>
+    </footer>
+</body>
+</html>`;
 
-function downloadChats() {
-  // combine text from each textarea, separated by a ---
-  const text = Array.from(document.querySelectorAll('textarea'))
-    .map(t => '*' + t.parentElement.querySelector('button').getAttribute('data-role-type').toUpperCase() + '*' + '\n\n' + t.value)
-    .join('\n\n---\n\n');
-  const date = new Date();
-  const dateString = date.toISOString().split('T')[0];
-  const timeString = date.toTimeString().split(' ')[0].replace(/:/g, '-');
-  const filename = `chats-${dateString}-${timeString}.md`;
-  const blob = new Blob([text], { type: 'text/plain' });
+const pythonCodeTemplate = `
+import openai
+API_KEY = '<!-- api key  -->'
+openai.api_key = API_KEY
+completion = openai.ChatCompletion.create(
+  model="<!-- model name  -->", 
+  messages=<!-- messages  -->
+)
+`;
+
+const downloadMarkdownButton = document.getElementById('downloadMarkdown');
+downloadMarkdownButton.addEventListener('click', downloadMarkdown);
+
+const downloadHTMLButton = document.getElementById('downloadHTML');
+downloadHTMLButton.addEventListener('click', downloadHTML);
+
+const downloadPythonButton = document.getElementById('downloadPython');
+downloadPythonButton.addEventListener('click', downloadPython);
+
+function getChats() {
+  const textAreas = document.querySelectorAll('textarea');
+  if (!textAreas.length) {
+    alert('No messages to download.');
+    return;
+  }
+
+  const text = Array.from(textAreas)
+    .map(t => {
+      const value = t.value.trim();
+      if (!value) return '';
+
+      const roleType = t.parentElement.querySelector('button').getAttribute('data-role-type').toUpperCase();
+      return `**${roleType}**\n\n${value}\n\n---\n\n`;
+    })
+    .join('');
+
+  if (!text.trim()) {
+  }
+
+  return text;
+}
+
+function getDateTimeStrings() {
+  const now = new Date();
+  const dateOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+  const dateString = now.toLocaleDateString(undefined, dateOptions).replace(/\//g, '-');
+  const timeString = now.toLocaleTimeString(undefined, timeOptions).replace(/:/g, '-');
+  return { dateString, timeString };
+}
+
+function downloadMarkdown() {
+  const text = getChats();
+
+  if (!text.trim()) {
+    alert('No messages to download.');
+    return;
+  }
+
+  const { dateString, timeString } = getDateTimeStrings();
+
+  const filename = `Aneejian-ChatGPT-Playground-${dateString}-${timeString}.md`;
+
+  const blob = new Blob([`${text}\n\n${downloadFileBrand} on ${dateString} at ${timeString}`], {
+    type: 'text/plain',
+  });
   const a = document.createElement('a');
   a.download = filename;
   a.href = URL.createObjectURL(blob);
   a.dataset.downloadurl = ['text/plain', a.download, a.href].join(':');
   a.click();
+
+  setTimeout(() => {
+    URL.revokeObjectURL(a.href);
+    a.remove();
+  }, 5000);
+}
+
+function downloadHTML() {
+  let text = getChats();
+
+  if (!text.trim()) {
+    alert('No messages to download.');
+    return;
+  }
+
+  const { dateString, timeString } = getDateTimeStrings();
+  const filename = `Aneejian-ChatGPT-Playground-${dateString}-${timeString}.html`;
+
+  text = marked.parse(`${text}\n\n${downloadFileBrand} on ${dateString} at ${timeString}`);
+
+  text = htmlTemplate.replace('<!-- replace me  -->', text);
+
+  const blob = new Blob([text], {
+    type: 'text/html',
+  });
+  const a = document.createElement('a');
+  a.download = filename;
+  a.href = URL.createObjectURL(blob);
+  a.dataset.downloadurl = ['text/html', a.download, a.href].join(':');
+  a.click();
+
+  setTimeout(() => {
+    URL.revokeObjectURL(a.href);
+    a.remove();
+  }, 5000);
+}
+
+function downloadPython() {
+  const messages = getMessages();
+  const pythonCode = pythonCodeTemplate
+    .replace('<!-- model name  -->', model)
+    .replace('<!-- api key  -->', apiKey)
+    .replace('<!-- messages  -->', JSON.stringify(messages));
+  const { dateString, timeString } = getDateTimeStrings();
+  const filename = `Aneejian-ChatGPT-Playground-${dateString}-${timeString}.py`;
+  const blob = new Blob([pythonCode], {
+    type: 'text/html',
+  });
+  const a = document.createElement('a');
+  a.download = filename;
+  a.href = URL.createObjectURL(blob);
+  a.dataset.downloadurl = ['text/html', a.download, a.href].join(':');
+  a.click();
+
+  setTimeout(() => {
+    URL.revokeObjectURL(a.href);
+    a.remove();
+  }, 5000);
 }
 
 const systemRole = 'system';
@@ -53,9 +191,9 @@ addMessageButton.addEventListener('click', () => {
 
 function addUserSwitchEventListener(userSwitch) {
   userSwitch.addEventListener('click', () => {
-    const isAssistant = userSwitch.dataset.roleType === 'assistant';
-    userSwitch.textContent = isAssistant ? 'USER' : 'ASSISTANT';
-    userSwitch.dataset.roleType = isAssistant ? 'user' : 'assistant';
+    const isAssistant = userSwitch.dataset.roleType === assistantRole;
+    userSwitch.textContent = isAssistant ? userRole : assistantRole;
+    userSwitch.dataset.roleType = isAssistant ? userRole : assistantRole;
   });
 }
 
@@ -177,28 +315,29 @@ function deleteMessage(messageDelete) {
   }
 }
 
-const form = document.querySelector('form');
-let msg = '';
-
-form.addEventListener('submit', async function (e) {
-  e.preventDefault();
-
+function getMessages() {
   const messages = [];
   const messageInputs = document.querySelectorAll('#messages-container .input-group');
-
   messageInputs.forEach(input => {
     const role = input.querySelector('button').dataset.roleType;
     const content = input.querySelector('textarea').value;
     if (!content.trim()) return;
     messages.push({ role, content });
   });
+  return messages;
+}
+
+const form = document.querySelector('form');
+
+form.addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const messages = getMessages();
 
   // stop if there are no messages
   if (messages.length === 0) return;
-  msg = messages;
 
   // Bearer
-  const model = 'gpt-3.5-turbo';
   try {
     addSpinner();
     const response = await openAIChatComplete(apiKey, model, messages);
@@ -208,6 +347,8 @@ form.addEventListener('submit', async function (e) {
     console.log(error);
   } finally {
     removeSpinner();
+    addMessage();
+    window.scrollTo(0, document.body.scrollHeight);
   }
 
   const data = {
