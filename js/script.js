@@ -62,20 +62,14 @@ function getChats() {
     alert('No messages to download.');
     return;
   }
-
   const text = Array.from(textAreas)
     .map(t => {
       const value = t.value.trim();
       if (!value) return '';
-
       const roleType = t.parentElement.querySelector('button').getAttribute('data-role-type').toUpperCase();
       return `**${roleType}**\n\n${value}\n\n---\n\n`;
     })
     .join('');
-
-  if (!text.trim()) {
-  }
-
   return text;
 }
 
@@ -96,14 +90,9 @@ function createDownloadLink(filename, data, type) {
   const a = document.createElement('a');
   a.href = url;
   a.download = filename;
-  // a.dataset.downloadurl = [type, a.download, a.href].join(':');
   a.click();
   window.URL.revokeObjectURL(url);
   a.remove();
-  // setTimeout(() => {
-  //   URL.revokeObjectURL(a.href);
-  //   a.remove();
-  // }, 5000);
 }
 
 function downloadMarkdown() {
@@ -329,18 +318,18 @@ form.addEventListener('submit', async function (e) {
     window.scrollTo(0, document.body.scrollHeight);
   }
 
-  const data = {
-    messages,
-    temperature: 0.7,
-    max_tokens: 256,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-    model: 'gpt-3.5-turbo',
-    stream: true,
-  };
+  // const data = {
+  //   messages,
+  //   temperature: 0.7,
+  //   max_tokens: 256,
+  //   top_p: 1,
+  //   frequency_penalty: 0,
+  //   presence_penalty: 0,
+  //   model: 'gpt-3.5-turbo',
+  //   stream: true,
+  // };
 
-  console.log(JSON.stringify(data));
+  // console.log(JSON.stringify(data));
 });
 
 async function openAIChatComplete(apiKey, model, message) {

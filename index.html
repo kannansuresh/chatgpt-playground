@@ -59,11 +59,11 @@
         <div class="mb-5 mt-5">
           <h1 class="text-center">ChatGPT Personal Playground</h1>
         </div>
-        <div class="input-group mb-3">
-          <button type="button" class="btn btn-outline-secondary form-button role-system is-disabled" data-role-type="system" disabled>API Key</button>
-          <input type="password" class="form-control message-text" name="apiKey" id="apiKey" placeholder="Enter your API Key" />
-        </div>
         <form id="chat-gpt-form">
+          <div class="input-group mb-3">
+            <button type="button" class="btn btn-outline-secondary form-button role-system is-disabled" data-role-type="system" disabled>API Key</button>
+            <input type="password" class="form-control message-text" name="apiKey" id="apiKey" placeholder="Enter your API Key" required />
+          </div>
           <div id="messages-container">
             <div class="input-group mb-3">
               <button type="button" class="btn btn-outline-secondary form-button role-system is-disabled" data-role-type="system" disabled>SYSTEM</button>
