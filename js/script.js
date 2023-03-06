@@ -162,6 +162,8 @@ function addUserSwitchEventListener(userSwitch) {
     const isAssistant = userSwitch.dataset.roleType === assistantRole;
     userSwitch.textContent = isAssistant ? userRole : assistantRole;
     userSwitch.dataset.roleType = isAssistant ? userRole : assistantRole;
+    const textarea = userSwitch.parentElement.querySelector('textarea');
+    textarea.placeholder = `Enter ${userSwitch.dataset.roleType === userRole ? 'a user' : 'an assistant'} message here.`;
   });
 }
 
@@ -218,7 +220,7 @@ function addMessage(message = '', setAsAssistant = false) {
 
   const messageInput = document.createElement('textarea');
   messageInput.className = 'form-control message-text';
-  messageInput.placeholder = `Enter ${isUser ? 'a user' : 'an assistant'} message here.`;
+  messageInput.placeholder = `Enter ${newRole === userRole ? 'a user' : 'an assistant'} message here.`;
   messageInput.setAttribute('aria-label', 'message');
   messageInput.setAttribute('rows', '1');
   messageInput.setAttribute('spellcheck', 'false');
@@ -320,8 +322,9 @@ chatGPTForm.addEventListener('submit', async function (e) {
   } finally {
     removeSpinner();
     addMessage();
-    // scroll to the end of the messages
-    chatGPTForm.scrollTop = chatGPTForm.scrollHeight;
+    // scroll to the last textarea
+    const lastMessage = document.querySelector('#messages-container .input-group:last-child textarea');
+    lastMessage.focus();
   }
 
   // const data = {
