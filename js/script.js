@@ -103,6 +103,7 @@ function deleteMessage(messageDelete) {
 }
 
 const form = document.querySelector('form');
+let msg = '';
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();
@@ -119,6 +120,15 @@ form.addEventListener('submit', function (e) {
 
   // stop if there are no messages
   if (messages.length === 0) return;
+  msg = messages;
+
+  const apiKey = 'sk-xxxxxxxxxxxxxxxxxxxxxxxxx';
+  // Bearer
+  const model = 'gpt-3.5-turbo';
+  openAIChatComplete(apiKey, model, messages).then(response => {
+    console.log(response);
+    addMessage(response);
+  });
 
   const data = {
     messages,
@@ -133,3 +143,30 @@ form.addEventListener('submit', function (e) {
 
   console.log(JSON.stringify(data));
 });
+
+function openAIChatComplete(apiKey, model, message) {
+  const url = 'https://api.openai.com/v1/chat/completions';
+
+  const requestData = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: model,
+      messages: message,
+    }),
+  };
+
+  return fetch(url, requestData)
+    .then(response => response.json())
+    .then(data => {
+      const responseText = data.choices[0].message.content;
+      return responseText;
+    })
+    .catch(error => {
+      console.log(error);
+      return error;
+    });
+}
