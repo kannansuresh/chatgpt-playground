@@ -1,5 +1,6 @@
 'use strict';
 
+const chatGPTForm = document.getElementById('chatgpt-form');
 const roleSwitchSpans = document.querySelectorAll('.role-switch');
 const messageDeleteSpans = document.querySelectorAll('.message-delete');
 const textAreas = document.querySelectorAll('textarea');
@@ -174,6 +175,12 @@ function textAreaResizeEventListener(textArea) {
   textArea.addEventListener('input', () => {
     resizeTextarea(textArea);
   });
+  textArea.addEventListener('keydown', function (event) {
+    if (event.ctrlKey && event.keyCode === 13) {
+      event.preventDefault();
+      chatGPTForm.submit.click();
+    }
+  });
 }
 
 function resizeTextarea(textarea) {
@@ -294,9 +301,7 @@ function getMessages() {
   return messages;
 }
 
-const form = document.querySelector('form');
-
-form.addEventListener('submit', async function (e) {
+chatGPTForm.addEventListener('submit', async function (e) {
   e.preventDefault();
 
   const messages = getMessages();
@@ -315,7 +320,8 @@ form.addEventListener('submit', async function (e) {
   } finally {
     removeSpinner();
     addMessage();
-    window.scrollTo(0, document.body.scrollHeight);
+    // scroll to the end of the messages
+    chatGPTForm.scrollTop = chatGPTForm.scrollHeight;
   }
 
   // const data = {
