@@ -88,84 +88,62 @@ function getDateTimeStrings() {
   return { dateString, timeString };
 }
 
+function createDownloadLink(filename, data, type) {
+  const blob = new Blob([data], {
+    type,
+  });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  // a.dataset.downloadurl = [type, a.download, a.href].join(':');
+  a.click();
+  window.URL.revokeObjectURL(url);
+  a.remove();
+  // setTimeout(() => {
+  //   URL.revokeObjectURL(a.href);
+  //   a.remove();
+  // }, 5000);
+}
+
 function downloadMarkdown() {
   const text = getChats();
-
   if (!text.trim()) {
     alert('No messages to download.');
     return;
   }
-
   const { dateString, timeString } = getDateTimeStrings();
-
   const filename = `Aneejian-ChatGPT-Playground-${dateString}-${timeString}.md`;
-
-  const blob = new Blob([`${text}\n\n${downloadFileBrand} on ${dateString} at ${timeString}`], {
-    type: 'text/plain',
-  });
-  const a = document.createElement('a');
-  a.download = filename;
-  a.href = URL.createObjectURL(blob);
-  a.dataset.downloadurl = ['text/plain', a.download, a.href].join(':');
-  a.click();
-
-  setTimeout(() => {
-    URL.revokeObjectURL(a.href);
-    a.remove();
-  }, 5000);
+  const markdownText = `${text}\n\n${downloadFileBrand} on ${dateString} at ${timeString}`;
+  createDownloadLink(filename, markdownText, 'text/plain');
 }
 
 function downloadHTML() {
   let text = getChats();
-
   if (!text.trim()) {
     alert('No messages to download.');
     return;
   }
-
   const { dateString, timeString } = getDateTimeStrings();
   const filename = `Aneejian-ChatGPT-Playground-${dateString}-${timeString}.html`;
-
   text = marked.parse(`${text}\n\n${downloadFileBrand} on ${dateString} at ${timeString}`);
-
   text = htmlTemplate.replace('<!-- replace me  -->', text);
-
-  const blob = new Blob([text], {
-    type: 'text/html',
-  });
-  const a = document.createElement('a');
-  a.download = filename;
-  a.href = URL.createObjectURL(blob);
-  a.dataset.downloadurl = ['text/html', a.download, a.href].join(':');
-  a.click();
-
-  setTimeout(() => {
-    URL.revokeObjectURL(a.href);
-    a.remove();
-  }, 5000);
+  createDownloadLink(filename, text, 'text/html');
 }
 
 function downloadPython() {
   const messages = getMessages();
+  if (!messages.length) {
+    alert('No messages to download.');
+    return;
+  }
   const pythonCode = pythonCodeTemplate
     .replace('<!-- model name  -->', model)
     .replace('<!-- api key  -->', apiKey)
     .replace('<!-- messages  -->', JSON.stringify(messages));
   const { dateString, timeString } = getDateTimeStrings();
   const filename = `Aneejian-ChatGPT-Playground-${dateString}-${timeString}.py`;
-  const blob = new Blob([pythonCode], {
-    type: 'text/html',
-  });
-  const a = document.createElement('a');
-  a.download = filename;
-  a.href = URL.createObjectURL(blob);
-  a.dataset.downloadurl = ['text/html', a.download, a.href].join(':');
-  a.click();
-
-  setTimeout(() => {
-    URL.revokeObjectURL(a.href);
-    a.remove();
-  }, 5000);
+  createDownloadLink(filename, pythonCode, 'text/html');
 }
 
 const systemRole = 'system';
