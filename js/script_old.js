@@ -5,30 +5,11 @@ const messageDeleteSpans = document.querySelectorAll('.message-delete');
 const textAreas = document.querySelectorAll('textarea');
 const inputField = document.getElementById('input');
 const messagesContainer = document.getElementById('messages-container');
+const messagesContainer2 = document.createElement('div');
 const addMessageButton = document.getElementById('add-message');
 const systemTextarea = document.getElementById('system');
 const submitButton = document.getElementById('submit');
 const apiKeyInput = document.getElementById('apiKey');
-
-const downloadButton = document.getElementById('download');
-downloadButton.addEventListener('click', downloadChats);
-
-function downloadChats() {
-  // combine text from each textarea, separated by a ---
-  const text = Array.from(document.querySelectorAll('textarea'))
-    .map(t => '*' + t.parentElement.querySelector('button').getAttribute('data-role-type').toUpperCase() + '*' + '\n\n' + t.value)
-    .join('\n\n---\n\n');
-  const date = new Date();
-  const dateString = date.toISOString().split('T')[0];
-  const timeString = date.toTimeString().split(' ')[0].replace(/:/g, '-');
-  const filename = `chats-${dateString}-${timeString}.md`;
-  const blob = new Blob([text], { type: 'text/plain' });
-  const a = document.createElement('a');
-  a.download = filename;
-  a.href = URL.createObjectURL(blob);
-  a.dataset.downloadurl = ['text/plain', a.download, a.href].join(':');
-  a.click();
-}
 
 const systemRole = 'system';
 const userRole = 'user';
@@ -78,45 +59,44 @@ function resizeTextarea(textarea) {
 }
 
 function addMessage(message = '', setAsAssistant = false) {
-  const allRoles = document.querySelectorAll('.role-switch');
-  const lastRoleType = allRoles[allRoles.length - 1]?.getAttribute('data-role-type') || assistantRole;
-  const isUser = lastRoleType === userRole;
-  const newRole = setAsAssistant ? assistantRole : isUser ? assistantRole : userRole;
-
-  const inputGroup = document.createElement('div');
-  inputGroup.className = 'input-group mb-3';
-
-  const switchRoleButton = document.createElement('button');
-  switchRoleButton.className = 'btn btn-outline-secondary role-switch form-button';
-  switchRoleButton.setAttribute('data-role-type', newRole);
-  switchRoleButton.setAttribute('type', 'button');
-  switchRoleButton.setAttribute('title', 'Switch Role');
-  switchRoleButton.tabIndex = -1;
-  switchRoleButton.textContent = newRole;
-  addUserSwitchEventListener(switchRoleButton);
-
-  const deleteMessageButton = document.createElement('button');
-  deleteMessageButton.className = 'btn btn-outline-secondary message-delete form-button';
-  const emDash = String.fromCharCode(0x2014);
-  deleteMessageButton.textContent = emDash;
-  deleteMessageButton.tabIndex = -1;
-  deleteMessageButton.setAttribute('type', 'button');
-  deleteMessageButton.setAttribute('title', 'Delete Message');
-  messageDeleteEventListener(deleteMessageButton);
-
-  const messageInput = document.createElement('textarea');
-  messageInput.className = 'form-control message-text';
-  messageInput.placeholder = `Enter ${isUser ? 'a user' : 'an assistant'} message here.`;
-  messageInput.setAttribute('aria-label', 'message');
-  messageInput.setAttribute('rows', '1');
-  messageInput.setAttribute('spellcheck', 'false');
-  textAreaResizeEventListener(messageInput);
-
-  inputGroup.append(switchRoleButton, messageInput, deleteMessageButton);
-  messagesContainer.append(inputGroup);
-
-  messageInput.value = message;
-  messageInput.dispatchEvent(new Event('input', { bubbles: true }));
+  try {
+    const allRoles = document.querySelectorAll('.role-switch');
+    const lastRoleType = allRoles.length > 0 ? allRoles[allRoles.length - 1].getAttribute('data-role-type') : assistantRole;
+    const isUser = lastRoleType === userRole;
+    const newRole = setAsAssistant ? assistantRole : isUser ? assistantRole : userRole;
+    const inputGroup = document.createElement('div');
+    inputGroup.classList.add('input-group', 'mb-3');
+    const switchRoleButton = document.createElement('button');
+    switchRoleButton.classList.add('btn', 'btn-outline-secondary', 'role-switch', 'form-button');
+    switchRoleButton.dataset.roleType = newRole;
+    switchRoleButton.textContent = newRole;
+    switchRoleButton.tabIndex = -1;
+    switchRoleButton.type = 'button';
+    addUserSwitchEventListener(switchRoleButton); // add the event listener to the new user switch element
+    const deleteMessageButton = document.createElement('button');
+    deleteMessageButton.classList.add('btn', 'btn-outline-secondary', 'message-delete', 'form-button');
+    deleteMessageButton.textContent = '-';
+    deleteMessageButton.tabIndex = -1;
+    deleteMessageButton.type = 'button';
+    messageDeleteEventListener(deleteMessageButton); // add the event listener to the new delete element
+    const messageInput = document.createElement('textarea');
+    messageInput.classList.add('form-control');
+    messageInput.placeholder = `Enter ${isUser ? 'a user' : 'an assistant'} message here.`;
+    messageInput.setAttribute('aria-label', 'message');
+    messageInput.classList.add('message-text');
+    messageInput.setAttribute('rows', 1);
+    messageInput.setAttribute('spellcheck', 'false');
+    textAreaResizeEventListener(messageInput); // add the event listener to the new textarea element
+    inputGroup.appendChild(switchRoleButton);
+    inputGroup.appendChild(messageInput);
+    inputGroup.appendChild(deleteMessageButton);
+    messagesContainer.appendChild(inputGroup);
+    messageInput.value = message;
+    const inputEvent = new Event('input', { bubbles: true });
+    messageInput.dispatchEvent(inputEvent);
+  } catch (err) {
+    console.error('Error adding message:', err);
+  }
 }
 
 function addSpinner() {
@@ -124,13 +104,13 @@ function addSpinner() {
   const placeholderDiv = document.createElement('div');
   placeholderDiv.id = 'placeholderDiv';
 
-  placeholderDiv.className = 'd-flex align-items-center';
+  placeholderDiv.classList.add('d-flex', 'align-items-center');
 
   const loadingParagraph = document.createElement('p');
   loadingParagraph.textContent = 'Fetching response...';
 
   const spinnerDiv = document.createElement('div');
-  spinnerDiv.className = 'spinner-border ms-auto';
+  spinnerDiv.classList.add('spinner-border', 'ms-auto');
   spinnerDiv.setAttribute('role', 'status');
   spinnerDiv.setAttribute('aria-hidden', 'true');
 
@@ -152,7 +132,11 @@ function disableOrEnableElements(disable = true) {
   const filteredElements = Array.from(elements).filter(element => !element.classList.contains('is-disabled'));
 
   filteredElements.forEach(element => {
-    element.disabled = disable;
+    if (disable) {
+      element.setAttribute('disabled', true);
+    } else {
+      element.removeAttribute('disabled');
+    }
   });
 }
 
@@ -180,13 +164,13 @@ function deleteMessage(messageDelete) {
 const form = document.querySelector('form');
 let msg = '';
 
-form.addEventListener('submit', async function (e) {
+form.addEventListener('submit', function (e) {
   e.preventDefault();
 
   const messages = [];
   const messageInputs = document.querySelectorAll('#messages-container .input-group');
 
-  messageInputs.forEach(input => {
+  messageInputs.forEach(function (input) {
     const role = input.querySelector('button').dataset.roleType;
     const content = input.querySelector('textarea').value;
     if (!content.trim()) return;
@@ -199,16 +183,11 @@ form.addEventListener('submit', async function (e) {
 
   // Bearer
   const model = 'gpt-3.5-turbo';
-  try {
-    addSpinner();
-    const response = await openAIChatComplete(apiKey, model, messages);
+  openAIChatComplete(apiKey, model, messages).then(response => {
     console.log(response);
     addMessage(response, true);
-  } catch (error) {
-    console.log(error);
-  } finally {
     removeSpinner();
-  }
+  });
 
   const data = {
     messages,
@@ -225,6 +204,7 @@ form.addEventListener('submit', async function (e) {
 });
 
 async function openAIChatComplete(apiKey, model, message) {
+  addSpinner();
   const url = 'https://api.openai.com/v1/chat/completions';
 
   const requestData = {
@@ -239,15 +219,19 @@ async function openAIChatComplete(apiKey, model, message) {
     }),
   };
 
-  const response = await fetch(url, requestData);
+  try {
+    const response = await fetch(url, requestData);
 
-  // check for response errors
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(`${error.error.code}\n${error.error.message}`);
+    // check for response errors
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error.code + '\n' + error.error.message);
+    }
+
+    const data = await response.json();
+    const responseText = data.choices[0].message.content;
+    return responseText;
+  } catch (error) {
+    return error;
   }
-
-  const data = await response.json();
-  const responseText = data.choices[0].message.content;
-  return responseText.trim();
 }

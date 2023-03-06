@@ -12,6 +12,10 @@
   background-color: #888;
 }
 
+.form-button {
+  text-transform: uppercase;
+}
+
 .role-switch,
 .role-system,
 .message-delete {
@@ -21,10 +25,30 @@
 
 .role-switch,
 .role-system {
-  width: 100px;
+  width: auto;
+  min-width: 112px;
 }
 
 .role-switch {
   cursor: pointer;
   text-align: center;
+}
+
+.navbar-brand {
+  font-family: 'Kaushan Script', cursive;
+  font-size: xx-large;
+  font-weight: 500;
+  color: #fd6c3f !important;
+}
+
+main {
+  margin-top: 7rem;
+}
+
+body {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+main {
+  font-weight: 300;
 }
