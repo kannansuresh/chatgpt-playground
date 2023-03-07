@@ -12,10 +12,10 @@
     <!-- Open Graph / Facebook -->
     <meta property="fb:app_id" content="819231514810191" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://aneejian.com/gpt-playground" />
+    <meta property="og:url" content="https://aneejian.com/chatgpt-playground" />
     <meta property="og:title" content="ChatGPT Playground | Aneejian" />
     <meta property="og:description" content="A private playground for ChatGPT by Aneejian" />
-    <meta property="og:image" content="images/featured.jpeg" />
+    <meta property="og:image" content="https://aneejian.com/chatgpt-playground/images/featured.jpeg" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
@@ -31,7 +31,7 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://aneejian.com/gpt-playground" />
+    <meta name="twitter:url" content="https://aneejian.com/chatgpt-playground" />
     <meta name="twitter:title" content="ChatGPT Playground | Aneejian" />
     <meta name="twitter:description" content="A private playground for ChatGPT by Aneejian" />
     <meta name="twitter:image" content="images/featured.jpeg" />
@@ -49,114 +49,120 @@
     <title>ChatGPT Personal Playground | Aneejian</title>
   </head>
   <body>
-    <nav class="navbar bg-body-tertiary fixed-top">
+    <nav class="navbar bg-body-tertiary">
       <div class="container">
         <a class="navbar-brand" href="#">Aneejian</a>
       </div>
     </nav>
     <main>
-      <div class="container mt-5">
-        <div class="mb-5 mt-5">
-          <h1 class="text-center">ChatGPT Personal Playground</h1>
+      <div class="container">
+        <div class="row">
+          <div class="mb-5 mt-5">
+            <h1 class="text-center">ChatGPT Personal Playground</h1>
+          </div>
         </div>
-        <form id="chatgpt-form">
-          <div class="input-group mb-3">
-            <button type="button" class="btn btn-outline-secondary form-button role-system is-disabled" data-role-type="system" disabled>API Key</button>
-            <input type="password" autocomplete="false" class="form-control message-text" name="apiKey" id="apiKey" placeholder="Enter your API Key" required />
-          </div>
-          <div id="messages-container">
-            <div class="input-group mb-3">
-              <button type="button" class="btn btn-outline-secondary form-button role-system is-disabled" data-role-type="system" disabled>SYSTEM</button>
-              <textarea
-                class="form-control message-text"
-                name="system"
-                spellcheck="false"
-                id="system"
-                rows="1"
-                placeholder="You are a helpful assistant."
-              ></textarea>
+        <div class="row">
+          <div class="col-md-8 mb-5">
+            <div class="mt-0">
+              <form id="chatgpt-form">
+                <div class="input-group mb-3">
+                  <button type="button" class="btn btn-outline-secondary form-button role-system is-disabled" data-role-type="system" disabled>API Key</button>
+                  <input
+                    type="password"
+                    autocomplete="false"
+                    class="form-control message-text"
+                    name="apiKey"
+                    id="apiKey"
+                    placeholder="Enter your API Key"
+                    required
+                  />
+                </div>
+                <div id="messages-container">
+                  <div class="input-group mb-3">
+                    <button type="button" class="btn btn-outline-secondary form-button role-system is-disabled" data-role-type="system" disabled>SYSTEM</button>
+                    <textarea
+                      class="form-control message-text"
+                      name="system"
+                      spellcheck="false"
+                      id="system"
+                      rows="1"
+                      placeholder="You are a helpful assistant."
+                    ></textarea>
+                  </div>
+                  <div class="input-group mb-3">
+                    <button type="button" class="btn btn-outline-secondary form-button role-switch" data-role-type="user" tabindex="-1" title="Switch Role">
+                      USER
+                    </button>
+                    <textarea
+                      class="form-control message-text"
+                      rows="1"
+                      spellcheck="false"
+                      placeholder="Enter a user message here."
+                      aria-label="message"
+                    ></textarea>
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary form-button message-delete"
+                      tabindex="-1"
+                      data-role-type="user"
+                      title="Delete Message"
+                    >
+                      —
+                    </button>
+                  </div>
+                </div>
+                <div class="mb-3 p-0"><button class="btn btn-dark btn-sm" type="button" title="Add new message" id="add-message">+ Add message</button></div>
+                <div class="btn-group mb-3" role="group">
+                  <button class="btn btn-success" title="Ctrl + Enter" type="submit" id="submit">Submit</button>
+                  <!-- <button class="btn btn-info" id="download" type="button">Save Chats as Markdown</button> -->
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Download</button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" id="downloadMarkdown">Markdown</a></li>
+                      <li><a class="dropdown-item" id="downloadHTML">HTML</a></li>
+                      <li><a class="dropdown-item" id="downloadPython">Python Code</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </form>
             </div>
-            <div class="input-group mb-3">
-              <button type="button" class="btn btn-outline-secondary form-button role-switch" data-role-type="user" tabindex="-1" title="Switch Role">
-                USER
-              </button>
-              <textarea class="form-control message-text" rows="1" spellcheck="false" placeholder="Enter a user message here." aria-label="message"></textarea>
-              <button type="button" class="btn btn-outline-secondary form-button message-delete" tabindex="-1" data-role-type="user" title="Delete Message">
-                —
-              </button>
+          </div>
+          <div class="col-md-4">
+            <div class="mt-0 mb-3 sticky-md-top" style="background-color: red">
+              <ins
+                class="adsbygoogle"
+                style="display: block"
+                data-ad-client="ca-pub-4083103140539495"
+                data-ad-slot="6425564087"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
             </div>
           </div>
-          <div class="mb-3 p-0"><button class="btn btn-dark btn-sm" type="button" title="Add new message" id="add-message">+ Add message</button></div>
-          <div class="btn-group mb-3" role="group">
-            <button class="btn btn-success" title="Ctrl + Enter" type="submit" id="submit">Submit</button>
-            <!-- <button class="btn btn-info" id="download" type="button">Save Chats as Markdown</button> -->
-            <div class="btn-group" role="group">
-              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Download</button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" id="downloadMarkdown">Markdown</a></li>
-                <li><a class="dropdown-item" id="downloadHTML">HTML</a></li>
-                <li><a class="dropdown-item" id="downloadPython">Python Code</a></li>
-              </ul>
-            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8 mt-5">
+            <h3>FAQ</h3>
+            <ol>
+              <li>
+                <h4>How to get API Key?</h4>
+                <p>
+                  You can get API Key by visiting
+                  <a href="https://platform.openai.com/account/api-keys" target="_blank">platform.openai.com</a>
+                  and clicking on "Get API Key" button.
+                </p>
+              </li>
+              <li>
+                <h4>Do you store my API?</h4>
+                <p>We do not store your API KEY. API KEY is stored in your local storage. You can delete it by clearing your browser's local storage.</p>
+              </li>
+              <li>
+                <h4>Can you access the chats I make?</h4>
+                <p>No, we cannot access the chats you make. This tool just acts as an interface to the API. We do not store any of your chats.</p>
+              </li>
+            </ol>
           </div>
-        </form>
-
-        <!-- <div class="mb-3 p-0"><button class="btn btn-info" id="download" type="button">Save Chats as Markdown</button></div> -->
-
-        <!-- <button class="btn btn-dark btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#moreSettings" aria-controls="moreSettings">
-          + More Settings
-        </button>
-        <div id="moreSettings" class="offcanvas offcanvas-start container" tabindex="-1">
-          <div class="mb-3 mt-3">
-            <h3 class="text-center">More Settings</h3>
-          </div>
-          <div class="mb-3">
-            <label id="label-temperature" for="temperature" class="form-label">Temperature 1</label>
-            <input type="range" class="form-range" min="0" max="2" step="0.1" id="temperature" value="1" />
-          </div>
-          <div class="mb-3">
-            <label id="label-top_p" for="top_p" class="form-label">Top P 1</label>
-            <input type="range" class="form-range" min="0" max="1" step="0.1" id="top_p" value="1" />
-          </div>
-        </div> -->
-      </div>
-
-      <div class="container mt-3 mb-3">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4083103140539495" crossorigin="anonymous"></script>
-        <!-- On GPT Page -->
-        <ins
-          class="adsbygoogle"
-          style="display: block"
-          data-ad-client="ca-pub-4083103140539495"
-          data-ad-slot="6425564087"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        ></ins>
-        <script>
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-      </div>
-
-      <div class="container mt-5">
-        <h3>FAQ</h3>
-        <ol>
-          <li>
-            <h4>How to get API Key?</h4>
-            <p>
-              You can get API Key by visiting
-              <a href="https://platform.openai.com/account/api-keys" target="_blank">platform.openai.com</a>
-              and clicking on "Get API Key" button.
-            </p>
-          </li>
-          <li>
-            <h4>Do you store my API?</h4>
-            <p>We do not store your API KEY. API KEY is stored in your local storage. You can delete it by clearing your browser's local storage.</p>
-          </li>
-          <li>
-            <h4>Can you access the chats I make?</h4>
-            <p>No, we cannot access the chats you make. This tool just acts as an interface to the API. We do not store any of your chats.</p>
-          </li>
-        </ol>
+        </div>
       </div>
     </main>
     <footer>
@@ -178,6 +184,9 @@
         crossorigin="anonymous"
       ></script>
       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4083103140539495" crossorigin="anonymous"></script>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
     </footer>
   </body>
 </html>
