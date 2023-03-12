@@ -4,7 +4,7 @@ Just like the ChatGPT Playground, this tool helps you in playing with the ChatGP
 
 ## Demo
 
-![Demo Video](https://www.youtube.com/watch?v=yoMCwhHqUDE)
+### [Demo Video](https://www.youtube.com/watch?v=yoMCwhHqUDE)
 
 ### Features
 
