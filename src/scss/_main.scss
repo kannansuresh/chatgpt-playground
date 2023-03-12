@@ -1,0 +1,91 @@
+body {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.navbar-brand {
+  font-family: 'Kaushan Script', cursive;
+  font-size: xx-large;
+  font-weight: 500;
+  color: #fd6c3f !important;
+}
+
+.message-text {
+  overflow: hidden;
+  resize: none;
+  min-height: 42.5px;
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+}
+
+.api-key-text,
+.role-switch,
+.role-system,
+.message-delete {
+  user-select: none;
+  border: var(--bs-border-width) solid var(--bs-border-color) !important;
+}
+
+.api-key-text {
+  font-size: 10px;
+}
+
+.message-delete {
+  font-size: 10px;
+  width: min-content;
+}
+
+#chatgpt-form div > label {
+  font-size: medium;
+}
+
+.role-switch {
+  cursor: pointer;
+  text-align: center;
+}
+
+.text-small {
+  font-size: 0.8rem !important;
+  line-height: 0rem !important;
+}
+
+.input-group .btn {
+  padding: 6px 3px !important;
+  border-radius: 0px !important;
+}
+
+.role-switch,
+.role-system {
+  border-right: none !important;
+}
+
+#chatgpt-form {
+  textarea {
+    padding-top: 0.4rem !important;
+    border-radius: 0px !important;
+  }
+  input {
+    border-radius: 0px !important;
+  }
+}
+
+.message-delete {
+  min-width: 1rem !important;
+  border-left: none !important;
+}
+
+.input-group-text {
+  border-radius: 0px !important;
+  border-left: none !important;
+}
