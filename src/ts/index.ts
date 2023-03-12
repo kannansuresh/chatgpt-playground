@@ -197,3 +197,18 @@ const downloadPythonButton = document.getElementById('downloadPython') as HTMLBu
 downloadPythonButton.addEventListener('click', e => {
   exports.downloadPython(getMessages(), chatGPTData.model);
 });
+
+const adFree = document.getElementById('ad-free') as HTMLLinkElement;
+
+const adFreeMsg = `
+Ads play an essential role in by providing the revenue needed to maintain the site and this project. Please consider using the ad enabled page to help us continue providing quality content.<br><br>
+
+Alternatively, please support our project by sponsoring it on GitHub or <a class="col" href="https://www.buymeacoffee.com/aneejian" target="_blank">buying us a coffee</a>. Your support would be much appreciated and would help us continue creating valuable content.<br><br>
+
+Thank you for your understanding and support!
+`;
+
+adFree.addEventListener('click', e => {
+  e.preventDefault();
+  utils.showModal('Ad Free', adFreeMsg, 'Continue to Ad Free Page', 'Remain Here', utils.navigateTo);
+});

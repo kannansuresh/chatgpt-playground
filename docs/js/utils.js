@@ -68,3 +68,32 @@ export function createDownloadLink(filename, data, type) {
     window.URL.revokeObjectURL(url);
     a.remove();
 }
+export function showModal(titleString = '', bodyString = '', buttonString = '', closeButtonString = 'Close', buttonFunction = null) {
+    const title = document.getElementById('modalTitle');
+    const body = document.getElementById('modalBody');
+    const button = document.getElementById('modalButton');
+    const closeButton = document.getElementById('modalCloseButton');
+    title.textContent = titleString;
+    body.innerHTML = bodyString;
+    button.textContent = buttonString;
+    closeButton.textContent = closeButtonString || 'Close';
+    if (!buttonString) {
+        button.style.display = 'none';
+    }
+    else {
+        button.style.display = 'block';
+        if (buttonFunction != null) {
+            button.addEventListener('click', e => {
+                buttonFunction('adfree.html');
+            });
+        }
+    }
+    // @ts-ignore
+    const myModal = new bootstrap.Modal(document.getElementById('modal'));
+    // @ts-ignore
+    myModal.show();
+}
+// function to navigate to a url
+export const navigateTo = (url) => {
+    window.location.href = url;
+};

@@ -11,7 +11,7 @@ const brandLineMd = `Downloaded from [${brand.publisher} ${brand.productName}]($
 function getChats() {
     const textAreas = document.querySelectorAll('textarea');
     if (!textAreas.length) {
-        alert('No messages to download.');
+        utils.showModal('Message Export', 'No messages to download.', '');
         return '';
     }
     const text = Array.from(textAreas)
@@ -28,7 +28,7 @@ function getChats() {
 export function downloadMarkdown() {
     const text = getChats();
     if (!text?.trim()) {
-        alert('No messages to download.');
+        utils.showModal('Markdown Export', 'No messages to download. Enter at least one prompt.', '');
         return;
     }
     const { dateString, timeString } = utils.getDateTimeStrings();
@@ -39,7 +39,7 @@ export function downloadMarkdown() {
 export function downloadHTML() {
     let text = getChats();
     if (!text?.trim()) {
-        alert('No messages to download.');
+        utils.showModal('HTML Export', 'No messages to download. Enter at least one prompt.', '');
         return;
     }
     const { dateString, timeString } = utils.getDateTimeStrings();
@@ -51,7 +51,7 @@ export function downloadHTML() {
 }
 export function downloadPython(messages, model) {
     if (!messages.length) {
-        alert('No messages to download.');
+        utils.showModal('Python Export', 'No messages to download. Enter at least one prompt.', '');
         return;
     }
     const pythonCode = pythonTemplate.replace('<!-- model name  -->', model).replace('<!-- messages  -->', JSON.stringify(messages));

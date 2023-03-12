@@ -51,7 +51,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="https://github.com/kannansuresh/chatgpt-playground" target="_blank">View on GitHub</a>
@@ -177,5 +177,30 @@
       <script src="js/vendor/bootstrap.bundle.min.js"></script>
       <script type="module" src="js/index.js"></script>
     </footer>
+
+
+<!-- modal  -->
+
+<div id="modal" class="modal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="modalTitle" class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="modalBody">Modal body text goes here.</div>
+      </div>
+      <div class="modal-footer">
+        <button id="modalCloseButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button id="modalButton" type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal end  -->
+
+
   </body>
 </html>
