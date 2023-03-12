@@ -7,9 +7,9 @@
     "build": "tsc && npm run scss",
     "dev": "npm-run-all --parallel live tscWatch scssWatch",
     "compile": "tsc && scss",
-    "live": "live-server --port=3000 --open=public/index.html",
-    "scssWatch": "sass --watch src/scss/style.scss:public/css/style.css",
-    "scss": "sass src/scss/style.scss:public/css/style.css",
+    "live": "live-server --port=3000 --open=docs/index.html",
+    "scssWatch": "sass --watch src/scss/style.scss:docs/css/style.css",
+    "scss": "sass src/scss/style.scss:docs/css/style.css",
     "tscWatch": "tsc -w"
   },
   "repository": {
