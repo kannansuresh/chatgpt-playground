@@ -45,38 +45,45 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container">
         <a class="navbar-brand" href="https://aneejian.com" target="_blank">Aneejian</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://github.com/kannansuresh/chatgpt-playground" target="_blank">View on GitHub</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://www.buymeacoffee.com/aneejian" target="_blank">Buy me a coffee</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://aneejian.com" target="_blank">Blog</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://www.youtube.com/watch?v=yoMCwhHqUDE" target="_blank">Demo Video</a>
-          </li>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/kannansuresh/chatgpt-playground" target="_blank">View on GitHub</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.buymeacoffee.com/aneejian" target="_blank">Buy me a coffee</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://aneejian.com" target="_blank">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.youtube.com/watch?v=yoMCwhHqUDE" target="_blank">Demo Video</a>
+            </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="https://github.com/sponsors/kannansuresh" target="_blank">Sponsor</a>
-          </li>
-          
-        </ul>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/sponsors/kannansuresh" target="_blank">Sponsor</a>
+            </li>
+          </ul>
+        </div>
       </div>
-
     </nav>
     <main>
       <div class="container">
-        <div class="mt-0">
+        <div class="">
           <div class="text-center mt-4 mb-4">
             <h1>ChatGPT Playground</h1>
           </div>
@@ -162,18 +169,42 @@
             </div>
           </form>
         </div>
-        <div class="mt-5 mb-5">
-          <ins
-            class="adsbygoogle"
-            style="display: block"
-            data-ad-client="ca-pub-4083103140539495"
-            data-ad-slot="6425564087"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          ></ins>
-        </div>
+        <excludeInAdFree>
+          <div class="m-2 ads">
+            <ins
+              class="adsbygoogle"
+              style="display: block"
+              data-ad-client="ca-pub-4083103140539495"
+              data-ad-slot="6425564087"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
+          </div>
+        </excludeInAdFree>
       </div>
     </main>
+
+    <!-- modal  -->
+
+    <div id="modal" class="modal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="modalTitle" class="modal-title">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="modalBody">Modal body text goes here.</div>
+          </div>
+          <div class="modal-footer">
+            <button id="modalCloseButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button id="modalButton" type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal end  -->
 
     <footer>
       <div class="container mb-5 mt-5">
@@ -184,7 +215,9 @@
           <a class="col" href="https://www.buymeacoffee.com/aneejian" target="_blank">Buy me a coffee</a>
           <a class="col" href="https://aneejian.com/privacy-policy" target="_blank">Privacy Policy</a>
           <a class="col" href="https://aneejian.com/contact" target="_blank">Contact Us</a>
-          <a id="ad-free" class="col" href="">Ad free</a>
+          <excludeInAdFree>
+            <a id="ad-free" class="col" href="">Ad free</a>
+          </excludeInAdFree>
         </div>
       </div>
 
@@ -193,36 +226,24 @@
       <script src="js/vendor/bootstrap.bundle.min.js"></script>
       <script type="module" src="js/index.js"></script>
 
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4083103140539495" crossorigin="anonymous"></script>
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-1G04SXT8CL"></script>
       <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-1G04SXT8CL');
       </script>
+
+      <excludeInAdFree>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4083103140539495" crossorigin="anonymous"></script>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </excludeInAdFree>
     </footer>
-
-
-<!-- modal  -->
-
-<div id="modal" class="modal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 id="modalTitle" class="modal-title">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div id="modalBody">Modal body text goes here.</div>
-      </div>
-      <div class="modal-footer">
-        <button id="modalCloseButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button id="modalButton" type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- modal end  -->
-
-
-
   </body>
 </html>
