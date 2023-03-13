@@ -2,6 +2,10 @@ body {
   font-family: 'Josefin Sans', sans-serif;
 }
 
+h1 {
+  font-weight: 300;
+}
+
 a {
   text-decoration: none;
 }
@@ -65,15 +69,11 @@ a {
   border-radius: 0px !important;
 }
 
-.role-switch,
-.role-system {
-  border-right: none !important;
-}
-
 #chatgpt-form {
   textarea {
     padding-top: 0.4rem !important;
     border-radius: 0px !important;
+    outline: none !important;
   }
   input {
     border-radius: 0px !important;
@@ -82,10 +82,8 @@ a {
 
 .message-delete {
   min-width: 1rem !important;
-  border-left: none !important;
 }
 
 .input-group-text {
   border-radius: 0px !important;
-  border-left: none !important;
 }
