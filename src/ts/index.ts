@@ -60,6 +60,7 @@ apiKeyInput.addEventListener('input', () => {
 });
 
 textAreas.forEach(textAreaEventListeners);
+textAreas.forEach(utils.resizeTextarea);
 switchRoleButtons.forEach(switchRoleEventListeners);
 deleteMessageButtons.forEach(messageDeleteButtonEventListener);
 

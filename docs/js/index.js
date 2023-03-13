@@ -49,6 +49,7 @@ apiKeyInput.addEventListener('input', () => {
         manageLS.setAPIKey(apiKey);
 });
 textAreas.forEach(textAreaEventListeners);
+textAreas.forEach(utils.resizeTextarea);
 switchRoleButtons.forEach(switchRoleEventListeners);
 deleteMessageButtons.forEach(messageDeleteButtonEventListener);
 addMessageButton.addEventListener('click', () => {
