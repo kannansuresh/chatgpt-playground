@@ -2,6 +2,7 @@ import { chatGPT } from './classes.js';
 import { resizeTextarea } from './utils.js';
 
 export async function openAIChatComplete(gptData: chatGPT, textArea: HTMLTextAreaElement) {
+  const previewDiv = textArea.parentElement?.querySelector('.preview') as HTMLDivElement;
   const url = gptData.endPoint;
   const requestData = gptData.getRequestData();
   let response;
@@ -41,7 +42,9 @@ export async function openAIChatComplete(gptData: chatGPT, textArea: HTMLTextAre
             responseText += content;
             textArea.value += content;
             textArea.value = textArea.value.trimStart();
-            resizeTextarea(textArea);
+            // @ts-ignore
+            previewDiv.innerHTML = marked.parse(textArea.value);
+            // resizeTextarea(textArea);
             textArea.scrollHeight;
           }
         }
@@ -50,6 +53,8 @@ export async function openAIChatComplete(gptData: chatGPT, textArea: HTMLTextAre
 
     const onDone = () => {
       textArea.value = responseText.trim();
+      // @ts-ignore
+      previewDiv.innerHTML = marked.parse(textArea.value);
       resizeTextarea(textArea);
     };
 

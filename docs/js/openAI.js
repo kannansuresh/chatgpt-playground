@@ -1,5 +1,6 @@
 import { resizeTextarea } from './utils.js';
 export async function openAIChatComplete(gptData, textArea) {
+    const previewDiv = textArea.parentElement?.querySelector('.preview');
     const url = gptData.endPoint;
     const requestData = gptData.getRequestData();
     let response;
@@ -33,7 +34,9 @@ export async function openAIChatComplete(gptData, textArea) {
                         responseText += content;
                         textArea.value += content;
                         textArea.value = textArea.value.trimStart();
-                        resizeTextarea(textArea);
+                        // @ts-ignore
+                        previewDiv.innerHTML = marked.parse(textArea.value);
+                        // resizeTextarea(textArea);
                         textArea.scrollHeight;
                     }
                 }
@@ -41,6 +44,8 @@ export async function openAIChatComplete(gptData, textArea) {
         };
         const onDone = () => {
             textArea.value = responseText.trim();
+            // @ts-ignore
+            previewDiv.innerHTML = marked.parse(textArea.value);
             resizeTextarea(textArea);
         };
         const read = () => {

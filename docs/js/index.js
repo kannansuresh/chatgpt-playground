@@ -52,6 +52,32 @@ textAreas.forEach(textAreaEventListeners);
 textAreas.forEach(utils.resizeTextarea);
 switchRoleButtons.forEach(switchRoleEventListeners);
 deleteMessageButtons.forEach(messageDeleteButtonEventListener);
+const textAreaDisplayProperties = textAreas[0].style.display;
+textAreas.forEach(createPreviewDiv);
+function createPreviewDiv(textArea) {
+    const previewDiv = document.createElement('div');
+    previewDiv.classList.add('preview');
+    previewDiv.style.display = textAreaDisplayProperties;
+    textArea.parentElement?.insertBefore(previewDiv, textArea);
+    const classes = textArea.classList;
+    classes.forEach(c => {
+        previewDiv.classList.add(c);
+    });
+    textArea.classList.add('hidden');
+    setPreviewHTML(previewDiv, textArea);
+    previewEventListeners(previewDiv);
+    return previewDiv;
+}
+function previewEventListeners(preview) {
+    preview.addEventListener('click', () => {
+        const textArea = preview.parentElement?.querySelector('textarea');
+        textArea.classList.remove('hidden');
+        textArea.style.display = textAreaDisplayProperties;
+        utils.resizeTextarea(textArea);
+        textArea.focus();
+        preview.style.display = 'none';
+    });
+}
 addMessageButton.addEventListener('click', () => {
     addMessage();
 });
@@ -61,7 +87,10 @@ window.addEventListener('resize', () => {
     });
 });
 function textAreaEventListeners(textarea) {
-    textarea.addEventListener('input', () => {
+    textarea.addEventListener('input', e => {
+        utils.resizeTextarea(textarea);
+    });
+    textarea.addEventListener('focus', e => {
         utils.resizeTextarea(textarea);
     });
     textarea.addEventListener('keydown', e => {
@@ -70,6 +99,18 @@ function textAreaEventListeners(textarea) {
             submitForm(e);
         }
     });
+    textarea.addEventListener('blur', () => {
+        const preview = textarea.parentElement?.querySelector('.preview');
+        preview.style.display = textAreaDisplayProperties;
+        setPreviewHTML(preview, textarea);
+        textarea.style.display = 'none';
+    });
+}
+function setPreviewHTML(preview, textarea) {
+    //@ts-ignore
+    const parsedMarkdown = marked.parse(textarea.value).trim();
+    const previewHtml = textarea.value.trim() ? `<div class="mt-1">${parsedMarkdown}</div>` : `<span class="text-muted">${textarea.placeholder}</span>`;
+    preview.innerHTML = previewHtml;
 }
 function switchRoleEventListeners(switchRole) {
     switchRole.addEventListener('click', e => {
@@ -126,6 +167,7 @@ function addMessage(message = '', setAsAssistant = false) {
     messagesContainer.append(inputGroup);
     messageInput.value = message;
     messageInput.dispatchEvent(new Event('input', { bubbles: true }));
+    createPreviewDiv(messageInput);
     return messageInput;
 }
 function getMessages() {
