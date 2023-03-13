@@ -4,13 +4,14 @@
   "description": "A playground for ChatGPT API.",
   "main": "index.ts",
   "scripts": {
-    "build": "tsc && npm run scss",
+    "build": "tsc && npm run scss && npm run generateAdFree",
     "dev": "npm-run-all --parallel live tscWatch scssWatch",
     "compile": "tsc && scss",
     "live": "live-server --port=3000 --open=docs/index.html",
     "scssWatch": "sass --watch src/scss/style.scss:docs/css/style.css",
     "scss": "sass src/scss/style.scss:docs/css/style.css",
-    "tscWatch": "tsc -w"
+    "tscWatch": "tsc -w",
+    "generateAdFree": "node scripts/generateAdFree.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",
     "@types/marked": "^4.0.8",
+    "fs": "^0.0.1-security",
     "npm-run-all": "^4.1.5",
     "sass": "^1.59.2",
     "typescript": "^4.9.5"
