@@ -24,6 +24,8 @@ export async function openAIChatComplete(gptData, textArea) {
                 return str;
             });
             jsonStrings = jsonStrings.map(str => str.trim()).filter(str => str.length > 0);
+            textArea.classList.remove('hidden');
+            previewDiv.classList.add('hidden');
             for (let i = 0; i < jsonStrings.length; i++) {
                 const responseData = JSON.parse(jsonStrings[i]);
                 const choices = responseData.choices;
@@ -36,7 +38,7 @@ export async function openAIChatComplete(gptData, textArea) {
                         textArea.value = textArea.value.trimStart();
                         // @ts-ignore
                         previewDiv.innerHTML = marked.parse(textArea.value);
-                        // resizeTextarea(textArea);
+                        resizeTextarea(textArea);
                         textArea.scrollHeight;
                     }
                 }
@@ -47,6 +49,8 @@ export async function openAIChatComplete(gptData, textArea) {
             // @ts-ignore
             previewDiv.innerHTML = marked.parse(textArea.value);
             resizeTextarea(textArea);
+            textArea.classList.add('hidden');
+            previewDiv.classList.remove('hidden');
         };
         const read = () => {
             return reader?.read().then(({ done, value }) => {

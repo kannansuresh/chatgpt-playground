@@ -82,10 +82,11 @@
         </div>
       </div>
     </nav>
-    <main>
+
+    <main class="pt-5">
       <div class="container">
         <div class="">
-          <div class="text-center mt-5 mb-5">
+          <div class="text-center mb-5">
             <h1>ChatGPT Playground</h1>
           </div>
           <form id="chatgpt-form">
@@ -106,7 +107,7 @@
                 <div
                   class="input-group-text"
                   title="Encrypt and save your API Key to your
-                    browser's local storage for future use"
+                      browser's local storage for future use"
                 >
                   <input class="form-check-input mt-0 me-2" type="checkbox" value="" id="saveAPIKey" checked />
                   <label class="mt-0 text-small" for="saveAPIKey">Save</label>
@@ -171,46 +172,62 @@
           </form>
         </div>
       </div>
+
+      <!-- modal  -->
+      <div id="modal" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 id="modalTitle" class="modal-title">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div id="modalBody">Modal body text goes here.</div>
+            </div>
+            <div class="modal-footer">
+              <button id="modalCloseButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button id="modalButton" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- modal end  -->
     </main>
 
-    <!-- modal  -->
-
-    <div id="modal" class="modal" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 id="modalTitle" class="modal-title">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div id="modalBody">Modal body text goes here.</div>
-          </div>
-          <div class="modal-footer">
-            <button id="modalCloseButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button id="modalButton" type="button" class="btn btn-primary">Save changes</button>
+    <footer class="footer">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container">
+          <a class="navbar-brand" href="" target="_blank">aneejian.com</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent-footer"
+            aria-controls="navbarSupportedContent-footer"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent-footer">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.buymeacoffee.com/aneejian" target="_blank">Buy me a coffee</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://aneejian.com/privacy-policy" target="_blank">Privacy Policy</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://aneejian.com/contact" target="_blank">Contact Us</a>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- modal end  -->
-
-    <footer>
-      <div class="container mb-5 mt-5">
-        <hr />
-        <div class="row">
-          <p class="col-3">Copyright © 2023 Aneejian</p>
-          <a class="col" href="https://www.buymeacoffee.com/aneejian" target="_blank">Buy me a coffee</a>
-          <a class="col" href="https://aneejian.com/privacy-policy" target="_blank">Privacy Policy</a>
-          <a class="col" href="https://aneejian.com/contact" target="_blank">Contact Us</a>
-        </div>
-      </div>
-
+      </nav>
       <script src="js/vendor/crypto-js.min.js"></script>
       <script src="js/vendor/marked.min.js"></script>
       <script src="js/vendor/bootstrap.bundle.min.js"></script>
       <script type="module" src="js/index.js"></script>
-
       <!-- Google tag (gtag.js) -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-1G04SXT8CL"></script>
       <script>
@@ -219,10 +236,8 @@
           dataLayer.push(arguments);
         }
         gtag('js', new Date());
-
         gtag('config', 'G-1G04SXT8CL');
       </script>
-
     </footer>
   </body>
 </html>
