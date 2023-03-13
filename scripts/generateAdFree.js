@@ -14,8 +14,8 @@ const writeStream = createWriteStream(outputFilePath, { encoding: 'utf-8' });
 
 let modifiedContent = '';
 
-const startString = '<excludeInAdFree>';
-const endString = '</excludeInAdFree>';
+const startString = '<!-- <excludeInAdFree> -->';
+const endString = '<!-- </excludeInAdFree> -->';
 let skip = false;
 
 readStream.on('data', chunk => {
