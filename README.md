@@ -19,6 +19,7 @@ Just like the ChatGPT Playground, this tool helps you in playing with the ChatGP
 ### Future plans
 
 - [x] Create a standalone tool and make the code open source.
+- [x] Implement HTML preview of responses.
 - [ ] Add more API settings like temperature, top_p, and max_tokens.
 - [ ] Add more programming language exports like JavaScript, C#, and PHP.
 - [ ] Option to save chats to local and load it later to continue conversation.
