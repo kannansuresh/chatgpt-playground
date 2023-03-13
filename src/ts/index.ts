@@ -209,7 +209,9 @@ Alternatively, please support our project by sponsoring it on GitHub or <a class
 Thank you for your understanding and support!
 `;
 
-adFree.addEventListener('click', e => {
-  e.preventDefault();
-  utils.showModal('Ad Free', adFreeMsg, 'Continue to Ad Free Page', 'Remain Here', utils.navigateTo);
-});
+if (adFree) {
+  adFree.addEventListener('click', e => {
+    e.preventDefault();
+    utils.showModal('Ad Free', adFreeMsg, 'Continue to Ad Free Page', 'Remain Here', utils.navigateTo);
+  });
+}
