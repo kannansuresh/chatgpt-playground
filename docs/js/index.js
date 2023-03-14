@@ -82,9 +82,7 @@ addMessageButton.addEventListener('click', () => {
     addMessage();
 });
 window.addEventListener('resize', () => {
-    textAreas.forEach(t => {
-        utils.resizeTextarea(t);
-    });
+    textAreas.forEach(utils.resizeTextarea);
 });
 function textAreaEventListeners(textarea) {
     textarea.addEventListener('input', e => {
@@ -109,7 +107,7 @@ function textAreaEventListeners(textarea) {
 function setPreviewHTML(preview, textarea) {
     //@ts-ignore
     const parsedMarkdown = marked.parse(textarea.value).trim();
-    const previewHtml = textarea.value.trim() ? `<div class="mt-1">${parsedMarkdown}</div>` : `<span class="text-muted">${textarea.placeholder}</span>`;
+    const previewHtml = textarea.value.trim() ? `<div>${parsedMarkdown}</div>` : `<span class="text-muted">${textarea.placeholder}</span>`;
     preview.innerHTML = previewHtml;
 }
 function switchRoleEventListeners(switchRole) {
@@ -219,7 +217,7 @@ downloadPythonButton.addEventListener('click', e => {
 });
 const adFree = document.getElementById('ad-free');
 const adFreeMsg = `
-Ads play an essential role in by providing the revenue needed to maintain the site and this project. Please consider using the ad enabled page to help us continue providing quality content.<br><br>
+Ads play an essential role in providing the revenue needed to maintain the site and this project. Please consider using the ad enabled page to help us continue providing quality content.<br><br>
 
 Alternatively, please support our project by sponsoring it on GitHub or <a class="col" href="https://www.buymeacoffee.com/aneejian" target="_blank">buying us a coffee</a>. Your support would be much appreciated and would help us continue creating valuable content.<br><br>
 

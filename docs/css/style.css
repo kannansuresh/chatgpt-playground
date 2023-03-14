@@ -11708,7 +11708,7 @@ pre {
 }
 
 main {
-  height: calc(100vh - 148px);
+  min-height: calc(100vh - 148px) !important;
 }
 
 /*# sourceMappingURL=style.css.map */
