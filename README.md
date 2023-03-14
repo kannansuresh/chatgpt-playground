@@ -4,9 +4,9 @@
 
 [![pages-build-deployment](https://github.com/kannansuresh/chatgpt-playground/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/kannansuresh/chatgpt-playground/actions/workflows/pages/pages-build-deployment)
 
----
-
 Just like the ChatGPT Playground, this tool helps you in playing with the ChatGPT model. It is a simple web app that lets you have a chat with ChatGPT using the API.
+
+I suggest you to read our article on [Getting Started with ChatGPT API](https://aneejian.com/getting-started-chat-gpt-api-comprehensive-guide/) before using this tool. That will give you a good idea of what these fields represent.
 
 I suggest you to read our article on [Getting Started with ChatGPT API](https://aneejian.com/getting-started-chat-gpt-api-comprehensive-guide/) before using this tool. That will give you a good idea of what these fields represent.
 
