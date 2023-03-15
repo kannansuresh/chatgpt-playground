@@ -1,5 +1,5 @@
 import { chatGPT } from './classes.js';
-import { resizeTextarea } from './utils.js';
+import { resizeTextarea, getPreviewHtml } from './utils.js';
 
 export async function openAIChatComplete(gptData: chatGPT, textArea: HTMLTextAreaElement) {
   const previewDiv = textArea.parentElement?.querySelector('.preview') as HTMLDivElement;
@@ -43,24 +43,14 @@ export async function openAIChatComplete(gptData: chatGPT, textArea: HTMLTextAre
           if (delta && delta.content) {
             const content = delta.content;
             responseText += content;
-            textArea.value += content;
-            textArea.value = textArea.value.trimStart();
-            // @ts-ignore
-            previewDiv.innerHTML = marked.parse(textArea.value);
-            resizeTextarea(textArea);
-            textArea.scrollHeight;
+            updateTextAreaAndPreview(textArea, previewDiv, content);
           }
         }
       }
     };
 
     const onDone = () => {
-      textArea.value = responseText.trim();
-      // @ts-ignore
-      previewDiv.innerHTML = marked.parse(textArea.value);
-      resizeTextarea(textArea);
-      textArea.classList.add('hidden');
-      previewDiv.classList.remove('hidden');
+      updateTextAreaAndPreview(textArea, previewDiv, responseText, true);
     };
 
     const read: any = () => {
@@ -79,9 +69,32 @@ export async function openAIChatComplete(gptData: chatGPT, textArea: HTMLTextAre
     return { result: true, response: responseText.trim() };
   } catch (error) {
     const errorMsg = `${error}`;
-    textArea.value = errorMsg;
-    resizeTextarea(textArea);
+    updateTextAreaAndPreview(textArea, previewDiv, errorMsg, true, true);
+    console.log(errorMsg);
     return { result: false, response: errorMsg };
+  }
+}
+
+function updateTextAreaAndPreview(
+  textArea: HTMLTextAreaElement,
+  previewDiv: HTMLDivElement,
+  text: string,
+  responseComplete: boolean = false,
+  error: boolean = false
+) {
+  textArea.value += text;
+  textArea.value = textArea.value.trimStart();
+  // @ts-ignore
+  previewDiv.innerHTML = getPreviewHtml(textArea.value);
+  resizeTextarea(textArea);
+  textArea.scrollHeight;
+  if (responseComplete) {
+    textArea.value = error ? text : text.trim();
+    // @ts-ignore
+    previewDiv.innerHTML = getPreviewHtml(textArea.value);
+    resizeTextarea(textArea);
+    textArea.classList.add('hidden');
+    previewDiv.classList.remove('hidden');
   }
 }
 

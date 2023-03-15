@@ -109,3 +109,10 @@ export function showModal(titleString = '', bodyString = '', buttonString = '', 
 export const navigateTo = (url: string) => {
   window.location.href = url;
 };
+
+export function getPreviewHtml(text: string) {
+  const regex = /(?<!\n)\n(?!\n)/g;
+  const cleanedText = text.replace(regex, '<br>');
+  // @ts-ignore
+  return marked.parse(cleanedText);
+}

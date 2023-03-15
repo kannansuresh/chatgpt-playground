@@ -97,3 +97,9 @@ export function showModal(titleString = '', bodyString = '', buttonString = '', 
 export const navigateTo = (url) => {
     window.location.href = url;
 };
+export function getPreviewHtml(text) {
+    const regex = /(?<!\n)\n(?!\n)/g;
+    const cleanedText = text.replace(regex, '<br>');
+    // @ts-ignore
+    return marked.parse(cleanedText);
+}
