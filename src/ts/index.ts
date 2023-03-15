@@ -125,7 +125,7 @@ function textAreaEventListeners(textarea: HTMLTextAreaElement) {
 
 function setPreviewHTML(preview: HTMLDivElement, textarea: HTMLTextAreaElement) {
   //@ts-ignore
-  const parsedMarkdown = marked.parse(textarea.value).trim();
+  const parsedMarkdown = utils.getPreviewHtml(textarea.value);
   const previewHtml = textarea.value.trim() ? `<div>${parsedMarkdown}</div>` : `<span class="text-muted">${textarea.placeholder}</span>`;
   preview.innerHTML = previewHtml;
 }
@@ -224,7 +224,7 @@ async function submitForm(e: Event) {
     chatGPTData.payloadMessages = messages;
     apiResponse = await openAIChatComplete(chatGPTData, targetTextArea);
   } catch (error) {
-    if (targetTextArea) targetTextArea.value = 'Error fetching response.\n' + error;
+    if (targetTextArea) targetTextArea.value = 'Error fetching response.\n\n' + error;
   } finally {
     utils.removeSpinner();
     let lastMessage = targetTextArea;

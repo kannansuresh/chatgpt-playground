@@ -106,7 +106,7 @@ function textAreaEventListeners(textarea) {
 }
 function setPreviewHTML(preview, textarea) {
     //@ts-ignore
-    const parsedMarkdown = marked.parse(textarea.value).trim();
+    const parsedMarkdown = utils.getPreviewHtml(textarea.value);
     const previewHtml = textarea.value.trim() ? `<div>${parsedMarkdown}</div>` : `<span class="text-muted">${textarea.placeholder}</span>`;
     preview.innerHTML = previewHtml;
 }
@@ -196,7 +196,7 @@ async function submitForm(e) {
     }
     catch (error) {
         if (targetTextArea)
-            targetTextArea.value = 'Error fetching response.\n' + error;
+            targetTextArea.value = 'Error fetching response.\n\n' + error;
     }
     finally {
         utils.removeSpinner();

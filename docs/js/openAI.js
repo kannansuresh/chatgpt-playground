@@ -1,4 +1,4 @@
-import { resizeTextarea } from './utils.js';
+import { resizeTextarea, getPreviewHtml } from './utils.js';
 export async function openAIChatComplete(gptData, textArea) {
     const previewDiv = textArea.parentElement?.querySelector('.preview');
     const url = gptData.endPoint;
@@ -34,23 +34,13 @@ export async function openAIChatComplete(gptData, textArea) {
                     if (delta && delta.content) {
                         const content = delta.content;
                         responseText += content;
-                        textArea.value += content;
-                        textArea.value = textArea.value.trimStart();
-                        // @ts-ignore
-                        previewDiv.innerHTML = marked.parse(textArea.value);
-                        resizeTextarea(textArea);
-                        textArea.scrollHeight;
+                        updateTextAreaAndPreview(textArea, previewDiv, content);
                     }
                 }
             }
         };
         const onDone = () => {
-            textArea.value = responseText.trim();
-            // @ts-ignore
-            previewDiv.innerHTML = marked.parse(textArea.value);
-            resizeTextarea(textArea);
-            textArea.classList.add('hidden');
-            previewDiv.classList.remove('hidden');
+            updateTextAreaAndPreview(textArea, previewDiv, responseText, true);
         };
         const read = () => {
             return reader?.read().then(({ done, value }) => {
@@ -67,9 +57,25 @@ export async function openAIChatComplete(gptData, textArea) {
     }
     catch (error) {
         const errorMsg = `${error}`;
-        textArea.value = errorMsg;
-        resizeTextarea(textArea);
+        updateTextAreaAndPreview(textArea, previewDiv, errorMsg, true, true);
+        console.log(errorMsg);
         return { result: false, response: errorMsg };
+    }
+}
+function updateTextAreaAndPreview(textArea, previewDiv, text, responseComplete = false, error = false) {
+    textArea.value += text;
+    textArea.value = textArea.value.trimStart();
+    // @ts-ignore
+    previewDiv.innerHTML = getPreviewHtml(textArea.value);
+    resizeTextarea(textArea);
+    textArea.scrollHeight;
+    if (responseComplete) {
+        textArea.value = error ? text : text.trim();
+        // @ts-ignore
+        previewDiv.innerHTML = getPreviewHtml(textArea.value);
+        resizeTextarea(textArea);
+        textArea.classList.add('hidden');
+        previewDiv.classList.remove('hidden');
     }
 }
 export default openAIChatComplete;
