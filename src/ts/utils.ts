@@ -111,8 +111,8 @@ export const navigateTo = (url: string) => {
 };
 
 export function getPreviewHtml(text: string) {
-  const regex = /(?<!\n)\n(?!\n)/g;
-  const cleanedText = text.replace(regex, '<br>');
+  // const regex = /(?<!\n)\n(?!\n)/g;
+  // const cleanedText = text.replace(regex, '<br>');
   // @ts-ignore
-  return marked.parse(cleanedText);
+  return marked.parse(text);
 }
