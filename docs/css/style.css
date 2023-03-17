@@ -11658,7 +11658,7 @@ a {
 }
 
 .api-key-text {
-  font-size: 10px;
+  padding-right: 1rem !important;
 }
 
 .message-delete {
