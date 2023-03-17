@@ -1,4 +1,12 @@
+import { chatGPT } from './classes.js';
 import { resizeTextarea, getPreviewHtml } from './utils.js';
+let reader;
+export function stopStream() {
+    console.log('Reader is: ' + reader);
+    if (reader) {
+        reader.cancel();
+    }
+}
 export async function openAIChatComplete(gptData, textArea) {
     const previewDiv = textArea.parentElement?.querySelector('.preview');
     const url = gptData.endPoint;
@@ -11,7 +19,7 @@ export async function openAIChatComplete(gptData, textArea) {
             const error = await response.json();
             throw new Error(`${error.error.code}\n${error.error.message}`);
         }
-        const reader = response.body?.getReader();
+        reader = response.body?.getReader();
         let responseText = '';
         const onData = (chunk) => {
             const textDecoder = new TextDecoder();
@@ -60,6 +68,9 @@ export async function openAIChatComplete(gptData, textArea) {
         updateTextAreaAndPreview(textArea, previewDiv, errorMsg, true, true);
         console.log(errorMsg);
         return { result: false, response: errorMsg };
+    }
+    finally {
+        textArea.placeholder = chatGPT.roles['assistant'].placeholder;
     }
 }
 function updateTextAreaAndPreview(textArea, previewDiv, text, responseComplete = false, error = false) {

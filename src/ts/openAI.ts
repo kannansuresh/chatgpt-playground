@@ -1,6 +1,16 @@
 import { chatGPT } from './classes.js';
 import { resizeTextarea, getPreviewHtml } from './utils.js';
 
+let reader: ReadableStreamDefaultReader | undefined;
+
+export function stopStream() {
+  console.log('Reader is: ' + reader);
+
+  if (reader) {
+    reader.cancel();
+  }
+}
+
 export async function openAIChatComplete(gptData: chatGPT, textArea: HTMLTextAreaElement) {
   const previewDiv = textArea.parentElement?.querySelector('.preview') as HTMLDivElement;
   const url = gptData.endPoint;
@@ -16,7 +26,7 @@ export async function openAIChatComplete(gptData: chatGPT, textArea: HTMLTextAre
       throw new Error(`${error.error.code}\n${error.error.message}`);
     }
 
-    const reader = response.body?.getReader();
+    reader = response.body?.getReader();
     let responseText = '';
 
     const onData = (chunk: BufferSource | undefined) => {
@@ -72,6 +82,8 @@ export async function openAIChatComplete(gptData: chatGPT, textArea: HTMLTextAre
     updateTextAreaAndPreview(textArea, previewDiv, errorMsg, true, true);
     console.log(errorMsg);
     return { result: false, response: errorMsg };
+  } finally {
+    textArea.placeholder = chatGPT.roles['assistant'].placeholder;
   }
 }
 

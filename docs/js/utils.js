@@ -1,3 +1,4 @@
+// import { stopStream } from './openAI';
 export function resizeTextarea(textarea) {
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
@@ -24,16 +25,17 @@ export function addSpinner(messagesContainer) {
     disableOrEnableElements(true);
     const placeholderDiv = document.createElement('div');
     placeholderDiv.id = 'placeholderDiv';
-    placeholderDiv.className = 'd-flex align-items-center';
+    const stopGeneratingButton = document.createElement('button');
+    stopGeneratingButton.className = 'btn btn-danger btn-sm mb-2 mt-2';
+    stopGeneratingButton.textContent = 'Stop Generating';
+    stopGeneratingButton.style.display = 'block';
+    stopGeneratingButton.type = 'button';
     const loadingParagraph = document.createElement('p');
     loadingParagraph.textContent = 'Fetching response...';
-    const spinnerDiv = document.createElement('div');
-    spinnerDiv.className = 'spinner-border ms-auto';
-    spinnerDiv.setAttribute('role', 'status');
-    spinnerDiv.setAttribute('aria-hidden', 'true');
     placeholderDiv.appendChild(loadingParagraph);
-    placeholderDiv.appendChild(spinnerDiv);
+    placeholderDiv.appendChild(stopGeneratingButton);
     messagesContainer.appendChild(placeholderDiv);
+    return placeholderDiv;
 }
 export function removeSpinner() {
     const spinnerDiv = document.getElementById('placeholderDiv');

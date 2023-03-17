@@ -106,11 +106,9 @@
             <h1>ChatGPT Playground</h1>
           </div>
           <form id="chatgpt-form">
-            <div class="">
+            <div class="api-key-container">
               <div class="input-group api-key">
-                <button type="button" class="btn btn-outline-secondary form-button role-system is-disabled api-key-text" data-role-type="system" disabled>
-                  🔐 API KEY
-                </button>
+                <label class="input-group-text role-system is-disabled api-key-text" data-role-type="system" disabled>🔐 API KEY</label>
                 <input
                   type="password"
                   autocomplete="false"
@@ -137,9 +135,8 @@
                 By checking save, the encrypted form of your API key will be stored in the local storage of your browser.
               </small>
             </div>
-            <hr />
             <div id="messages-container">
-              <div class="mb-3">
+              <div class="mb-3 mt-4">
                 <div class="input-group">
                   <button type="button" class="btn btn-outline-secondary form-button role-system is-disabled" data-role-type="system" disabled>🧠</button>
                   <textarea
@@ -148,11 +145,11 @@
                     spellcheck="false"
                     id="system"
                     rows="1"
-                    placeholder="Provide instructions on how the assistant is expected to act, such as being knowledgeable in cricket, resulting in cricket-oriented replies."
+                    placeholder="Optional - Provide instructions on how the assistant is expected to act, such as being knowledgeable in cricket, resulting in cricket-oriented replies."
                   ></textarea>
                 </div>
               </div>
-              <hr />
+
               <div class="input-group mb-3">
                 <button type="button" class="btn btn-outline-secondary form-button role-switch" data-role-type="user" tabindex="-1" title="Switch Role">
                   👤

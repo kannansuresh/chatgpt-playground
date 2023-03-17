@@ -2,7 +2,7 @@ import { chatGPT } from './classes.js';
 import { payloadRole } from './classes.js';
 import * as manageLS from './manageLocalStorage.js';
 import * as utils from './utils.js';
-import { openAIChatComplete } from './openAI.js';
+import { openAIChatComplete, stopStream } from './openAI.js';
 import * as exports from './export.js';
 const chatGPTData = new chatGPT();
 const systemRole = chatGPT.roles.system.role;
@@ -62,6 +62,7 @@ function createPreviewDiv(textArea) {
     const previewDiv = document.createElement('div');
     previewDiv.classList.add('preview');
     previewDiv.style.display = textAreaDisplayProperties;
+    previewDiv.tabIndex = 0;
     textArea.parentElement?.insertBefore(previewDiv, textArea);
     const classes = textArea.classList;
     classes.forEach(c => {
@@ -73,13 +74,16 @@ function createPreviewDiv(textArea) {
     return previewDiv;
 }
 function previewEventListeners(preview) {
-    preview.addEventListener('click', () => {
-        const textArea = preview.parentElement?.querySelector('textarea');
+    const textArea = preview.parentElement?.querySelector('textarea');
+    function showTextArea() {
         textArea.classList.remove('hidden');
         textArea.style.display = textAreaDisplayProperties;
         utils.resizeTextarea(textArea);
         textArea.focus();
         preview.style.display = 'none';
+    }
+    ['click', 'focus'].forEach(e => {
+        preview.addEventListener(e, showTextArea);
     });
 }
 addMessageButton.addEventListener('click', () => {
@@ -128,6 +132,9 @@ function switchRoleEventListeners(switchRole) {
         const txtArea = switchRole.parentElement?.querySelector('textarea');
         if (txtArea) {
             txtArea.placeholder = getRole(newRole).placeholder;
+            const previewDiv = switchRole.parentElement?.querySelector('.preview');
+            if (previewDiv)
+                setPreviewHTML(previewDiv, txtArea);
         }
     });
 }
@@ -164,7 +171,7 @@ function addMessage(message = '', setAsAssistant = false) {
     messageDeleteButtonEventListener(deleteMessageButton);
     const messageInput = document.createElement('textarea');
     messageInput.className = 'form-control message-text';
-    messageInput.placeholder = `Enter ${newRole === userRole ? 'a user' : 'an assistant'} message here.`;
+    messageInput.placeholder = setAsAssistant ? 'Fetching response...' : getRole(newRole).placeholder;
     messageInput.setAttribute('aria-label', 'message');
     messageInput.setAttribute('rows', '1');
     messageInput.setAttribute('spellcheck', 'false');
@@ -197,7 +204,10 @@ async function submitForm(e) {
     let apiResponse = null;
     try {
         targetTextArea = addMessage('', true);
-        utils.addSpinner(messagesContainer);
+        const spinnerDiv = utils.addSpinner(messagesContainer);
+        spinnerDiv.querySelector('button')?.addEventListener('click', () => {
+            stopStream();
+        });
         chatGPTData.apiKey = apiKey;
         chatGPTData.payloadMessages = messages;
         apiResponse = await openAIChatComplete(chatGPTData, targetTextArea);
