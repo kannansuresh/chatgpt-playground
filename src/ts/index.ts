@@ -38,6 +38,7 @@ const messagesContainer = document.querySelector('#messages-container') as HTMLD
 const addMessageButton = document.querySelector('#add-message') as HTMLButtonElement;
 const apiKeyInput = document.querySelector('#apiKey') as HTMLInputElement;
 const saveAPIKeyCheckbox = document.querySelector('#saveAPIKey') as HTMLInputElement;
+const modelSelect = document.querySelector('#chatgpt-model') as HTMLSelectElement;
 
 // initialize elements
 
@@ -46,6 +47,9 @@ manageLS.initializeForm(saveAPIKeyCheckbox, apiKeyInput);
 let apiKey = apiKeyInput.value;
 
 saveAPIKeyCheckbox.addEventListener('change', setUserPreferenceOfAPIKeySaving);
+
+let storedModel = manageLS.getModel();
+if (storedModel) modelSelect.value = storedModel;
 
 function setUserPreferenceOfAPIKeySaving() {
   const isChecked = saveAPIKeyCheckbox.checked;
@@ -100,6 +104,11 @@ addMessageButton.addEventListener('click', () => {
 
 window.addEventListener('resize', () => {
   textAreas.forEach(utils.resizeTextarea);
+});
+
+modelSelect.addEventListener('change', () => {
+  chatGPTData.model = modelSelect.value;
+  manageLS.setModel(modelSelect.value);
 });
 
 function textAreaEventListeners(textarea: HTMLTextAreaElement) {

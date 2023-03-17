@@ -101,3 +101,10 @@ pre {
 main {
   min-height: calc(100vh - 148px) !important;
 }
+
+#chatgpt-model {
+  option {
+    cursor: pointer !important;
+    padding: 1rem !important;
+  }
+}
