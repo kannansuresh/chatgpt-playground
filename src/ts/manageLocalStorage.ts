@@ -2,6 +2,7 @@ import * as crypto from './cryptography.js';
 
 const LOCAL_STORAGE_API_KEY = 'chatGPTPlaygroundAPIKey';
 const LOCAL_STORAGE_SAVE_KEY = 'chatGPTPlaygroundSaveAPIChoice';
+const LOCAL_STORAGE_MODEL_KEY = 'chatGPTPlaygroundModel';
 
 // Get the API key from local storage
 export function getAPIKey() {
@@ -21,6 +22,17 @@ export function getAPIKey() {
 export function setAPIKey(apiKey: string) {
   const encryptedString = crypto.encrypt(apiKey);
   localStorage.setItem(LOCAL_STORAGE_API_KEY, encryptedString);
+}
+
+// Save the model to local storage
+export function setModel(model: string) {
+  localStorage.setItem(LOCAL_STORAGE_MODEL_KEY, model);
+}
+
+// Get the model from local storage
+export function getModel() {
+  const model = localStorage.getItem(LOCAL_STORAGE_MODEL_KEY);
+  if (model) return model;
 }
 
 // Get the user's choice to save the API key to local storage
