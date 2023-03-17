@@ -35,7 +35,8 @@ export function addSpinner(messagesContainer: HTMLDivElement): HTMLDivElement {
   stopGeneratingButton.type = 'button';
 
   const loadingParagraph = document.createElement('p');
-  loadingParagraph.textContent = 'Fetching response...';
+  loadingParagraph.textContent = 'Fetching response';
+  loadingParagraph.className = 'loading';
   placeholderDiv.appendChild(loadingParagraph);
   placeholderDiv.appendChild(stopGeneratingButton);
   messagesContainer.appendChild(placeholderDiv);
