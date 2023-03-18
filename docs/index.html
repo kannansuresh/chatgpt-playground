@@ -59,210 +59,221 @@
     <title>ChatGPT Playground | Aneejian</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container">
-        <a class="navbar-brand" href="https://aneejian.com" target="_blank">Aneejian</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://github.com/kannansuresh/chatgpt-playground" target="_blank">View on GitHub</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://www.buymeacoffee.com/aneejian" target="_blank">Buy me a coffee</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://aneejian.com" target="_blank">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://youtu.be/OYQ7Wfa6uU4" target="_blank">Demo Video</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="https://github.com/sponsors/kannansuresh" target="_blank">Sponsor</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <main class="pt-5">
-      <div class="container">
-        <div class="">
-          <div class="text-center mb-5">
-            <h1>ChatGPT Playground</h1>
-          </div>
-          <form id="chatgpt-form">
-            <div class="api-key-container">
-              <div class="input-group api-key">
-                <label class="input-group-text role-system is-disabled api-key-text" data-role-type="system" disabled>🔐 API KEY</label>
-                <input
-                  type="password"
-                  autocomplete="false"
-                  class="form-control message-text"
-                  name="apiKey"
-                  id="apiKey"
-                  placeholder="Enter your API Key"
-                  required
-                />
-                <select id="chatgpt-model" class="form-select" aria-label="Model Select" style="max-width: fit-content">
-                  <option class="dropdown-item p-3" value="gpt-3.5-turbo" selected>GPT Turbo</option>
-                  <option class="dropdown-item p-3" value="gpt-4-0314">GPT 4</option>
-                </select>
-                <div
-                  class="input-group-text"
-                  title="Encrypt and save your API Key to your
-                      browser's local storage for future use"
-                >
-                  <input class="form-check-input mt-0 me-2" type="checkbox" value="" id="saveAPIKey" checked />
-                  <label class="mt-0 text-small" for="saveAPIKey">Save</label>
-                </div>
-              </div>
-              <small class="text-muted text-small">
-                By checking save, the encrypted form of your API key will be stored in the local storage of your browser.
-              </small>
+    <div class="main-layout">
+      <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <div class="container">
+            <a class="navbar-brand" href="https://aneejian.com" target="_blank">Aneejian</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://github.com/kannansuresh/chatgpt-playground" target="_blank">View on GitHub</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.buymeacoffee.com/aneejian" target="_blank">Buy me a coffee</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://aneejian.com" target="_blank">Blog</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://youtu.be/OYQ7Wfa6uU4" target="_blank">Demo Video</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://github.com/sponsors/kannansuresh" target="_blank">Sponsor</a>
+                </li>
+              </ul>
             </div>
-            <div id="messages-container">
-              <div class="mb-3 mt-4">
-                <div class="input-group">
-                  <button type="button" class="btn btn-outline-secondary form-button role-system is-disabled" data-role-type="system" disabled>🧠</button>
+          </div>
+        </nav>
+      </header>
+      <main class="pt-5">
+        <div class="container">
+          <div class="">
+            <div class="text-center mb-5">
+              <h1>ChatGPT Playground</h1>
+            </div>
+            <form id="chatgpt-form">
+              <div class="api-key-container">
+                <div class="input-group api-key">
+                  <label class="input-group-text role-system is-disabled api-key-text" data-role-type="system" disabled>🔐 API KEY</label>
+                  <input
+                    type="password"
+                    autocomplete="false"
+                    class="form-control message-text"
+                    name="apiKey"
+                    id="apiKey"
+                    placeholder="Enter your API Key"
+                    required
+                  />
+                  <select id="chatgpt-model" class="form-select" aria-label="Model Select" style="max-width: fit-content">
+                    <option class="dropdown-item p-3" value="gpt-3.5-turbo" selected>GPT Turbo</option>
+                    <option class="dropdown-item p-3" value="gpt-4-0314">GPT 4</option>
+                  </select>
+                  <div
+                    class="input-group-text"
+                    title="Encrypt and save your API Key to your
+                        browser's local storage for future use"
+                  >
+                    <input class="form-check-input mt-0 me-2" type="checkbox" value="" id="saveAPIKey" checked />
+                    <label class="mt-0 text-small" for="saveAPIKey">Save</label>
+                  </div>
+                </div>
+                <small class="text-muted text-small">
+                  By checking save, the encrypted form of your API key will be stored in the local storage of your browser.
+                </small>
+              </div>
+              <div id="messages-container">
+                <div class="mb-3 mt-4">
+                  <div class="input-group">
+                    <button type="button" class="btn btn-outline-secondary form-button role-system is-disabled" data-role-type="system" disabled>🧠</button>
+                    <textarea
+                      class="form-control message-text"
+                      name="system"
+                      spellcheck="false"
+                      id="system"
+                      rows="1"
+                      placeholder="Optional - Provide instructions on how the assistant is expected to act, such as being knowledgeable in cricket, resulting in cricket-oriented replies."
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <button type="button" class="btn btn-outline-secondary form-button role-switch" data-role-type="user" tabindex="-1" title="Switch Role">
+                    👤
+                  </button>
                   <textarea
                     class="form-control message-text"
-                    name="system"
-                    spellcheck="false"
-                    id="system"
                     rows="1"
-                    placeholder="Optional - Provide instructions on how the assistant is expected to act, such as being knowledgeable in cricket, resulting in cricket-oriented replies."
+                    spellcheck="false"
+                    placeholder="Enter a user message here."
+                    aria-label="message"
                   ></textarea>
+                  <button type="button" class="btn btn-outline-secondary form-button message-delete" tabindex="-1" data-role-type="user" title="Delete Message">
+                    ❌
+                  </button>
                 </div>
               </div>
-
-              <div class="input-group mb-3">
-                <button type="button" class="btn btn-outline-secondary form-button role-switch" data-role-type="user" tabindex="-1" title="Switch Role">
-                  👤
-                </button>
-                <textarea
-                  class="form-control message-text"
-                  rows="1"
-                  spellcheck="false"
-                  placeholder="Enter a user message here."
-                  aria-label="message"
-                ></textarea>
-                <button type="button" class="btn btn-outline-secondary form-button message-delete" tabindex="-1" data-role-type="user" title="Delete Message">
-                  ❌
-                </button>
+              <div class="mb-3 p-0">
+                <button class="btn btn-dark btn-sm" type="button" title="Add new message" id="add-message">+ Add message</button>
               </div>
-            </div>
-            <div class="mb-3 p-0">
-              <button class="btn btn-dark btn-sm" type="button" title="Add new message" id="add-message">+ Add message</button>
-            </div>
-            <div class="btn-group mb-3" role="group">
-              <button class="btn btn-success" title="Ctrl + Enter" type="submit" id="submit">Submit</button>
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Download</button>
-                <ul class="dropdown-menu">
-                  <li>
-                    <button type="button" class="dropdown-item p-3" id="downloadMarkdown">Markdown</button>
-                  </li>
-                  <li>
-                    <button type="button" class="dropdown-item p-3" id="downloadHTML">HTML</button>
-                  </li>
-                  <li>
-                    <button type="button" class="dropdown-item p-3" id="downloadPython">Python Code</button>
-                  </li>
-                </ul>
+              <div class="btn-group mb-3" role="group">
+                <button class="btn btn-success" title="Ctrl + Enter" type="submit" id="submit">Submit</button>
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Download</button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button type="button" class="dropdown-item p-3" id="downloadMarkdown">Markdown</button>
+                    </li>
+                    <li>
+                      <button type="button" class="dropdown-item p-3" id="downloadHTML">HTML</button>
+                    </li>
+                    <li>
+                      <button type="button" class="dropdown-item p-3" id="downloadPython">Python Code</button>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
-
-      <!-- modal  -->
-      <div id="modal" class="modal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 id="modalTitle" class="modal-title">Modal title</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div id="modalBody">Modal body text goes here.</div>
-            </div>
-            <div class="modal-footer">
-              <button id="modalCloseButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button id="modalButton" type="button" class="btn btn-primary">Save changes</button>
+        <!-- modal  -->
+        <div id="modal" class="modal" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 id="modalTitle" class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div id="modalBody">Modal body text goes here.</div>
+              </div>
+              <div class="modal-footer">
+                <button id="modalCloseButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="modalButton" type="button" class="btn btn-primary">Save changes</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- modal end  -->
-    </main>
-
-    <footer class="footer">
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container">
-          <a class="navbar-brand" href="" target="_blank">aneejian.com</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent-footer"
-            aria-controls="navbarSupportedContent-footer"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent-footer">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" href="https://www.buymeacoffee.com/aneejian" target="_blank">Buy me a coffee</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="https://aneejian.com/privacy-policy" target="_blank">Privacy Policy</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="https://aneejian.com/contact" target="_blank">Contact Us</a>
-              </li>
-              <!-- <excludeInAdFree> -->
-              <li class="nav-item">
-                <a id="ad-free" class="nav-link" href="">Ad free</a>
-              </li>
-              <!-- </excludeInAdFree> -->
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <script src="js/vendor/crypto-js.min.js"></script>
-      <script src="js/vendor/marked.min.js"></script>
-      <script src="js/vendor/bootstrap.bundle.min.js"></script>
-      <script type="module" src="js/index.js"></script>
-      <!-- Google tag (gtag.js) -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-1G04SXT8CL"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-          dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'G-1G04SXT8CL');
-      </script>
+        <!-- modal end  -->
+      </main>
       <!-- <excludeInAdFree> -->
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4083103140539495" crossorigin="anonymous"></script>
+      <div class="mt-1 mb-1 ad-unit container">
+        <ins
+          class="adsbygoogle"
+          style="display: block"
+          data-ad-client="ca-pub-4083103140539495"
+          data-ad-slot="6425564087"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        ></ins>
+      </div>
       <!-- </excludeInAdFree> -->
-    </footer>
+      <footer class="footer mt-5">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <div class="container">
+            <a class="navbar-brand" href="" target="_blank">aneejian.com</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent-footer"
+              aria-controls="navbarSupportedContent-footer"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-footer">
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.buymeacoffee.com/aneejian" target="_blank">Buy me a coffee</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://aneejian.com/privacy-policy" target="_blank">Privacy Policy</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://aneejian.com/contact" target="_blank">Contact Us</a>
+                </li>
+                <!-- <excludeInAdFree> -->
+                <li class="nav-item">
+                  <a id="ad-free" class="nav-link" href="">Ad free</a>
+                </li>
+                <!-- </excludeInAdFree> -->
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <script src="js/vendor/crypto-js.min.js"></script>
+        <script src="js/vendor/marked.min.js"></script>
+        <script src="js/vendor/bootstrap.bundle.min.js"></script>
+        <script type="module" src="js/index.js"></script>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1G04SXT8CL"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-1G04SXT8CL');
+        </script>
+        <!-- <excludeInAdFree> -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4083103140539495" crossorigin="anonymous"></script>
+        <!-- </excludeInAdFree> -->
+      </footer>
+    </div>
   </body>
 </html>
