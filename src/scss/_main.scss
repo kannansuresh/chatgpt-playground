@@ -10,6 +10,13 @@ a {
   text-decoration: none;
 }
 
+.main-layout {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+}
+
 .hidden {
   display: none;
 }
@@ -25,7 +32,7 @@ a {
 .message-text {
   overflow: hidden;
   resize: none;
-  min-height: 42.5px;
+  // min-height: 45px;
   ::-webkit-scrollbar {
     width: 0px;
     background: transparent;
@@ -98,9 +105,9 @@ pre {
   padding: 1rem;
 }
 
-main {
-  min-height: calc(100vh - 148px) !important;
-}
+// main {
+//   min-height: calc(100vh - 148px) !important;
+// }
 
 #chatgpt-model {
   option {
@@ -134,3 +141,13 @@ main {
 }
 
 // end of loading ellipsis animation.
+
+.preview p:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.form-control:focus {
+  box-shadow: none !important;
+  border-color: #ced4da;
+}

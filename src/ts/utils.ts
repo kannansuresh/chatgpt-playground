@@ -4,6 +4,17 @@ export function resizeTextarea(textarea: HTMLTextAreaElement) {
   textarea.style.height = 'auto';
   textarea.style.height = `${textarea.scrollHeight}px`;
   textarea.rows = textarea.value.split('\n').length > 1 ? textarea.value.split('\n').length : 1;
+  ensureButtonInView();
+}
+
+function ensureButtonInView() {
+  const button = document.getElementById('stopGenerationBtn') as HTMLButtonElement;
+  if (!button) return;
+  const buttonRect = button.getBoundingClientRect();
+  const inViewPort = buttonRect.top >= 0 && buttonRect.left >= 0 && buttonRect.bottom <= window.innerHeight && buttonRect.right <= window.innerWidth;
+  if (!inViewPort) {
+    button.scrollIntoView({ behavior: 'smooth', block: 'center' }); // scroll to element
+  }
 }
 
 export function deleteMessage(messageToDelete: HTMLButtonElement) {
@@ -33,6 +44,7 @@ export function addSpinner(messagesContainer: HTMLDivElement): HTMLDivElement {
   stopGeneratingButton.textContent = 'Stop Generating';
   stopGeneratingButton.style.display = 'block';
   stopGeneratingButton.type = 'button';
+  stopGeneratingButton.id = 'stopGenerationBtn';
 
   const loadingParagraph = document.createElement('p');
   loadingParagraph.textContent = 'Fetching response';
