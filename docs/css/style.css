@@ -11621,6 +11621,13 @@ a {
   text-decoration: none;
 }
 
+.main-layout {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+}
+
 .hidden {
   display: none;
 }
@@ -11636,7 +11643,6 @@ a {
 .message-text {
   overflow: hidden;
   resize: none;
-  min-height: 42.5px;
 }
 .message-text ::-webkit-scrollbar {
   width: 0px;
@@ -11707,10 +11713,6 @@ pre {
   padding: 1rem;
 }
 
-main {
-  min-height: calc(100vh - 148px) !important;
-}
-
 #chatgpt-model option {
   cursor: pointer !important;
   padding: 1rem !important;
@@ -11735,6 +11737,15 @@ main {
   to {
     width: 1.25em;
   }
+}
+.preview p:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.form-control:focus {
+  box-shadow: none !important;
+  border-color: #ced4da;
 }
 
 /*# sourceMappingURL=style.css.map */
