@@ -1,6 +1,8 @@
 {
   "name": "ChatGPT Play Ground | Aneejian",
   "short_name": "ChatGPT Play Ground | Aneejian",
+  "description": "ChatGPT Play Ground - run ChatGPT with your API key.",
+  "start_url": "/",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
